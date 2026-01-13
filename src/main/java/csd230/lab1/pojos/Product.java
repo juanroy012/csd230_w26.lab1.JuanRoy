@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 // Marked abstract because it implements SaleableItem but doesn't implement getPrice()
 // (Price is defined in children: Ticket and Publication)
-public abstract class Product extends Editable implements SaleableItem, Serializable {
+public abstract class Product implements SaleableItem, Serializable {
     private String productId;
 
     public String getProductId() {

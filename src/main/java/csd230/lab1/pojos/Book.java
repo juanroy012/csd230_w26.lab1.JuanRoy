@@ -5,6 +5,8 @@ import java.util.Objects;
 public class Book extends Publication {
     private String author = "";
 
+    private String isbn = "";
+
     public Book() {
         super();
     }
@@ -19,31 +21,7 @@ public class Book extends Publication {
     }
 
     @Override
-    public void initialize() {
-        // 1. Initialize Parent (Title)
-        super.initialize();
-
-        // 2. Initialize Self (Author)
-        System.out.println("Enter Author:");
-        this.author = getInput("Unknown Author");
-
-        // 3. Initialize Parent (Copies/Price)
-        super.initPriceCopies();
-    }
-
-    @Override
-    public void edit() {
-        // 1. Edit Parent fields (Title, Price, Copies)
-        super.edit();
-
-        // 2. Edit Self fields
-        System.out.println("Edit Author [" + this.author + "]:");
-        this.author = getInput(this.author);
-    }
-
-    @Override
     public void sellItem() {
-        System.out.println("Selling Book: " + getTitle() + " by " + author);
         setCopies(getCopies() - 1);
     }
 
@@ -51,8 +29,16 @@ public class Book extends Publication {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(String isbn) {
         this.author = author;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     @Override

@@ -16,32 +16,7 @@ public class Magazine extends Publication {
     }
 
     @Override
-    public void initialize() {
-        super.initialize(); // Title
-
-        System.out.println("Enter Order Qty:");
-        this.orderQty = getInput(0);
-
-        System.out.println("Enter Current Issue Date (dd-MMM-yyyy):");
-        this.currentIssue = getInput(new Date());
-
-        super.initPriceCopies(); // Copies, Price
-    }
-
-    @Override
-    public void edit() {
-        super.edit(); // Title, Price, Copies
-
-        System.out.println("Edit Order Qty [" + this.orderQty + "]:");
-        this.orderQty = getInput(this.orderQty);
-
-        System.out.println("Edit Issue Date [" + this.currentIssue + "]:");
-        this.currentIssue = getInput(this.currentIssue);
-    }
-
-    @Override
     public void sellItem() {
-        System.out.println("Selling Magazine: " + getTitle());
         setCopies(getCopies() - 1);
     }
 
