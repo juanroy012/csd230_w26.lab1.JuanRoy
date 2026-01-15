@@ -2,10 +2,6 @@ package csd230.lab1;
 import com.github.javafaker.Commerce;
 import com.github.javafaker.Faker;
 import csd230.lab1.entities.*;
-import csd230.lab1.pojos.Cart;
-import csd230.lab1.pojos.HandheldConsole;
-import csd230.lab1.pojos.Magazine;
-import csd230.lab1.pojos.Product;
 import csd230.lab1.repositories.CartEntityRepository;
 import csd230.lab1.repositories.ProductEntityRepository;
 import jakarta.transaction.Transactional;
@@ -14,7 +10,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootApplication
 public class Application  implements CommandLineRunner {
