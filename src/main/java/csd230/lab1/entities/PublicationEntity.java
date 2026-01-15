@@ -2,8 +2,9 @@ package csd230.lab1.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.MappedSuperclass;
 
-@Entity
+@MappedSuperclass
 public abstract class PublicationEntity extends ProductEntity {
     private String title;
 
@@ -19,6 +20,7 @@ public abstract class PublicationEntity extends ProductEntity {
         if (copies > 0) { copies--; System.out.println("Sold '" + title + "'. Remaining copies: " + copies); }
         else { System.out.println("Cannot sell '" + title + "'. Out of stock."); }
     }
+
     @Override public double getPrice() { return price; }
 
     public String getTitle() { return title; }

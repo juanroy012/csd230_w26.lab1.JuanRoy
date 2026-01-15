@@ -1,9 +1,11 @@
 package csd230.lab1.pojos;
 
+import csd230.lab1.nicheEntities.HomeConsoleEntity;
+
 import java.util.Objects;
 
 /**
- * DTO for {@link csd230.lab1.entities.HomeConsoleEntity}
+ * DTO for {@link HomeConsoleEntity}
  */
 public class HomeConsole extends GameConsole {
 
@@ -15,6 +17,11 @@ public class HomeConsole extends GameConsole {
 
     public void setMaxResolution(String maxResolution) {
         this.maxResolution = maxResolution;
+    }
+
+    @Override
+    public void sellItem() {
+        setQuantity(getQuantity() - 1);
     }
 
     @Override

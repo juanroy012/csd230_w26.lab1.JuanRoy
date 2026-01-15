@@ -1,67 +1,89 @@
 classDiagram
-    Editable <|--Product
-    Product <|--Ticket
-    Product <|--Publication
+    SaleableItem <|.. Product
+    Serializable <|.. Product
+
+    Product <|-- Ticket
+    Product <|-- Publication
+    Product <|-- GameConsole
+
     Publication <|-- Book
     Publication <|-- Magazine
     Magazine <|-- DiscMag
-    SaleableItem <|.. Product
-    Serializable <|.. Product
-    Product <-- CashTill
+
+    GameConsole <|-- HandheldConsole
+    GameConsole <|-- HomeConsole
+
+    Product "many" -- "many" Cart
 
     class Product{
-        -String productId
+        -Long Id
+        -Set~Cart~ carts
+        +getId()
+        +setId()
+        +getCarts()
+        +setCarts()
+        +equals()
+        +hashCode()
+        +toString()
     }
 
-    class Serializable{
-        <<interface>>
+    class Cart{
+        -Long id
+        -Set~Product~ products
+
+        +Cart()
+        +Cart(Set~Product~ products)
+
+        +addProduct()
+        +getId()
+        +setId()
+        +getProducts()
+        +setProducts()
+        +equals()
+        +hashCode()
+        +toString()
     }
+
     class Ticket{
-        +description
-        +price
+        +String description
+        +double price
         +sellItem()
+        +getDescription()
+        +setDescription()
+        +getPrice()
+        +setPrice()
+        +equals()
+        +hashCode()
+        +toString()
     }
-    class Editable{
-        <<abstract>>
-        -Scanner input
-        +String getInput(String)
-        +int getInput(int)
-        +double getInput(double)
-        +boolean getInput(boolean)
-        +Date getInput(Date)
-        +Enum getInput(Enum)
-        +edit()*
-        +initialize()*
 
-    }
     class Publication{
         <<Abstract>>
         -String title
         -double price
         -int copies
         +getPrice()
-
+        +setPrice()
         +Publication()
         +Publication(String title, double price, int copies)
-        +toString()
         +equals()
         +hashCode()
-
+        +toString()
     }
+
     class Book{
         -String author
         +edit()
         +initialize()
         +sellItem()
-
         +Book()
         +Book(String author)
         +Book(String author, String title, double price, int copies)
-        +toString()
         +equals()
         +hashCode()
-
+        +toString()
     }
+
     class Magazine{
         -int orderQty
         -java.util.Date currentIssue
@@ -72,7 +94,11 @@ classDiagram
         +edit()
         +initialize()
         +sellItem()
+        +equals()
+        +hashCode()
+        +toString()
     }
+
     class DiscMag{
         -boolean hasDisc
         +edit()
@@ -82,16 +108,63 @@ classDiagram
         +DiscMag()
         +DiscMag(boolean, hasDisc, int orderQty, Date currentIssue, String title, double price, int copies)
 
+        +equals()
+        +hashCode()
+        +toString()
     }
-    class CashTill{
-        -double runningTotal
-        +CashTill()
-        +showTotal()
-        +sellItem(SaleableItem item)
+
+    class GameConsole {
+        <<abstract>>
+        -String manufacturer
+        -double price
+        -int quantity
+
+        +GameConsole()
+        +GameConsole(String manufacturer, double price, int quantity)
+
+        +getManufacturer()
+        +setManufacturer()
+        +getPrice()
+        +setPrice()
+        +getQuantity()
+        +setQuantity()
+        +equals()
+        +hashCode()
+        +toString()
     }
+
+    class HandheldConsole {
+        -int batteryLifeHours
+
+        +HandheldConsole()
+        +HandheldConsole(String manufacturer, double price, int quantity, int batteryLifeHours)
+
+        +getbatteryLifeHours()
+        +setbatteryLifeHours()
+        +equals()
+        +hashCode()
+        +toString()
+    }
+
+    class HomeConsole {
+        -String maxResolution
+
+        +HomeConsole()
+        +HomeConsole(String manufacturer, double price, int quantity, String maxResolution)
+
+        +getMaxResolution()
+        +setMaxResolution()
+        +equals()
+        +hashCode()
+        +toString()
+    }
+
     class SaleableItem {
         <<interface>>
         +sellItem()
         +getPrice()
+    }
 
+    class Serializable{
+        <<interface>>
     }

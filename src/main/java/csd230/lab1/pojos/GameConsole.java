@@ -3,10 +3,13 @@ package csd230.lab1.pojos;
 /**
  * DTO for {@link csd230.lab1.GameConsoleEntity}
  */
+
+import csd230.lab1.nicheEntities.GameConsoleEntity;
+
 /**
- * DTO for {@link csd230.lab1.entities.GameConsoleEntity}
+ * DTO for {@link GameConsoleEntity}
  */
-public class GameConsole extends Product {
+public abstract class GameConsole extends Product {
 
     private String manufacturer;
     private double price;
@@ -35,10 +38,5 @@ public class GameConsole extends Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    @Override
-    public void sellItem() {
-        setQuantity(getQuantity() - 1);
     }
 }

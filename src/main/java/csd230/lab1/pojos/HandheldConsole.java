@@ -1,12 +1,14 @@
 package csd230.lab1.pojos;
 
+import csd230.lab1.nicheEntities.HandheldConsoleEntity;
+
 import java.util.Objects;
 
 /**
  * DTO for {@link csd230.lab1.HandheldConsoleEntity}
  */
 /**
- * DTO for {@link csd230.lab1.entities.HandheldConsoleEntity}
+ * DTO for {@link HandheldConsoleEntity}
  */
 public class HandheldConsole extends GameConsole {
     private int batteryLifeHours;
@@ -17,6 +19,11 @@ public class HandheldConsole extends GameConsole {
 
     public void setBatteryLifeHours(int batteryLifeHours) {
         this.batteryLifeHours = batteryLifeHours;
+    }
+
+    @Override
+    public void sellItem() {
+        setQuantity(getQuantity() - 1);
     }
 
     @Override

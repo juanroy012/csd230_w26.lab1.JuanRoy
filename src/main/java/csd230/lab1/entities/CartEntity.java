@@ -20,6 +20,13 @@ public class CartEntity {
     )
 
     private Set<ProductEntity> products = new LinkedHashSet<>();
+
+    public CartEntity(){};
+
+    public CartEntity(Set<ProductEntity> products){
+        this.products = products;
+    }
+
     public void addProduct(ProductEntity product) {
         this.products.add(product);
         product.getCarts().add(this); // Maintain the link on both sides

@@ -1,15 +1,16 @@
 package csd230.lab1.pojos;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Magazine extends Publication {
     private int orderQty = 0;
-    private Date currentIssue = new Date();
+    private LocalDate currentIssue = LocalDate.now();
 
     public Magazine() {
     }
 
-    public Magazine(int orderQty, Date currentIssue, String title, double price, int copies) {
+    public Magazine(int orderQty, LocalDate currentIssue, String title, double price, int copies) {
         super(title, price, copies);
         this.orderQty = orderQty;
         this.currentIssue = currentIssue;
@@ -22,8 +23,8 @@ public class Magazine extends Publication {
 
     public int getOrderQty() { return orderQty; }
     public void setOrderQty(int o) { this.orderQty = o; }
-    public Date getCurrentIssue() { return currentIssue; }
-    public void setCurrentIssue(Date d) { this.currentIssue = d; }
+    public LocalDate getCurrentIssue() { return currentIssue; }
+    public void setCurrentIssue(LocalDate d) { this.currentIssue = d; }
 
     @Override
     public String toString() {

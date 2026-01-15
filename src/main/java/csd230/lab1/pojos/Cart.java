@@ -1,45 +1,48 @@
 package csd230.lab1.pojos;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
 public class Cart {
-    private List<Product> items;
+    private Set<Product> products = new LinkedHashSet<>();
 
     public Cart() {
     }
 
-    public Cart(List<Product> items) {
-        this.items = items;
+    public Cart(Set<Product> items) {
+        this.products = items;
     }
 
     public void addItem(Product item) {
-        items.add(item);
+        products.add(item);
     }
 
-    public List<Product> getItems() {
-        return items;
+    public Set<Product> getProducts() {
+        return products;
     }
 
-    public void setItems(List<Product> items) {
-        this.items = items;
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Cart cart)) return false;
-        return Objects.equals(getItems(), cart.getItems());
+        return Objects.equals(getProducts(), cart.getProducts());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getItems());
+        return Objects.hashCode(getProducts());
     }
 
     @Override
     public String toString() {
         return "Cart{" +
-                "items=" + items +
+                "items=" + products +
                 '}';
     }
 }

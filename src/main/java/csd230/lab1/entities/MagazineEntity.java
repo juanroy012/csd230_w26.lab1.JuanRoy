@@ -13,19 +13,19 @@ public class MagazineEntity extends PublicationEntity {
 
     private int orderQty;
 
-    private LocalDateTime currentIssue;
+    private LocalDate currentIssue;
 
     public MagazineEntity() {}
 
-    public MagazineEntity(String t, double p, int c, int o, LocalDateTime d) { super(t, p, c); this.orderQty = o; this.currentIssue = d; }
+    public MagazineEntity(String t, double p, int c, int o, LocalDate d) { super(t, p, c); this.orderQty = o; this.currentIssue = d; }
 
     public int getOrderQty() { return orderQty; }
 
     public void setOrderQty(int o) { this.orderQty = o; }
 
-    public void setCurrentIssue(LocalDateTime d) { this.currentIssue = d; }
+    public void setCurrentIssue(LocalDate d) { this.currentIssue = d; }
 
-    public LocalDateTime getCurrentIssue() { return currentIssue; }
+    public LocalDate getCurrentIssue() { return currentIssue; }
 
     @Override public String toString() { return "Mag{issue=" + currentIssue + ", " + super.toString() + "}"; }
 }

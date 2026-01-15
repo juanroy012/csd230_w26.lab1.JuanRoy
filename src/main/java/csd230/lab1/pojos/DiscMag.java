@@ -1,5 +1,6 @@
 package csd230.lab1.pojos;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class DiscMag extends Magazine {
@@ -8,7 +9,7 @@ public class DiscMag extends Magazine {
     public DiscMag() {
     }
 
-    public DiscMag(boolean hasDisc, int orderQty, Date currentIssue, String title, double price, int copies) {
+    public DiscMag(boolean hasDisc, int orderQty, LocalDate currentIssue, String title, double price, int copies) {
         super(orderQty, currentIssue, title, price, copies);
         this.hasDisc = hasDisc;
     }

@@ -4,6 +4,7 @@ import csd230.lab1.pojos.SaleableItem;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -31,5 +32,16 @@ public abstract class ProductEntity implements Serializable, SaleableItem {
     @Override
     public String toString() {
         return "ProductEntity{id=" + id + "} : " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof ProductEntity that)) return false;
+        return Objects.equals(id, that.id) && Objects.equals(carts, that.carts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, carts);
     }
 }
