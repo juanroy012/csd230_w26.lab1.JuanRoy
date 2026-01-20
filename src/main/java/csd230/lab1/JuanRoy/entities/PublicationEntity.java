@@ -1,7 +1,6 @@
-package csd230.lab1.entities;
+package csd230.lab1.JuanRoy.entities;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass

@@ -1,10 +1,10 @@
-package csd230.lab1.entities;
+package csd230.lab1.JuanRoy.entities;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 @Entity @DiscriminatorValue("DISCMAG")
 public class DiscMagEntity extends MagazineEntity {
 

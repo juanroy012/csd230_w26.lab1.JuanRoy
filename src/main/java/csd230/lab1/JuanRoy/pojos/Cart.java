@@ -1,7 +1,6 @@
-package csd230.lab1.pojos;
+package csd230.lab1.JuanRoy.pojos;
 
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 

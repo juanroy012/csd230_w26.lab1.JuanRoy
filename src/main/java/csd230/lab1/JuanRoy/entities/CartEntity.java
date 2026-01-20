@@ -1,4 +1,4 @@
-package csd230.lab1.entities;
+package csd230.lab1.JuanRoy.entities;
 
 import jakarta.persistence.*;
 import java.util.LinkedHashSet;

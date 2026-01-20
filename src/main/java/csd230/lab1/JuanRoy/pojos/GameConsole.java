@@ -1,10 +1,10 @@
-package csd230.lab1.pojos;
+package csd230.lab1.JuanRoy.pojos;
 
 /**
  * DTO for {@link csd230.lab1.GameConsoleEntity}
  */
 
-import csd230.lab1.nicheEntities.GameConsoleEntity;
+import csd230.lab1.JuanRoy.nicheEntities.GameConsoleEntity;
 
 /**
  * DTO for {@link GameConsoleEntity}

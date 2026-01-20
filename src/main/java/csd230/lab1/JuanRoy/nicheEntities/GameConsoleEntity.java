@@ -1,6 +1,6 @@
-package csd230.lab1.nicheEntities;
+package csd230.lab1.JuanRoy.nicheEntities;
 
-import csd230.lab1.entities.ProductEntity;
+import csd230.lab1.JuanRoy.entities.ProductEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 

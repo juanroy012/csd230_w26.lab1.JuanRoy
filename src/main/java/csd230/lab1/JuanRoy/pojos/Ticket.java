@@ -1,4 +1,4 @@
-package csd230.lab1.pojos;
+package csd230.lab1.JuanRoy.pojos;
 
 public class Ticket extends Product {
     private String description = "";

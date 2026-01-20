@@ -1,4 +1,4 @@
-package csd230.lab1.pojos;
+package csd230.lab1.JuanRoy.pojos;
 
 import java.util.Objects;
 

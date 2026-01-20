@@ -1,6 +1,6 @@
-package csd230.lab1.repositories;
+package csd230.lab1.JuanRoy.repositories;
 
-import csd230.lab1.entities.CartEntity;
+import csd230.lab1.JuanRoy.entities.CartEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CartEntityRepository extends JpaRepository<CartEntity, Long> {

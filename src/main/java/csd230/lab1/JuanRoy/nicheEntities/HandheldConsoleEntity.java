@@ -1,4 +1,4 @@
-package csd230.lab1.nicheEntities;
+package csd230.lab1.JuanRoy.nicheEntities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;

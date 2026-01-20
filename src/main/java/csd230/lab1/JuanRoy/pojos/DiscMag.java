@@ -1,7 +1,6 @@
-package csd230.lab1.pojos;
+package csd230.lab1.JuanRoy.pojos;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class DiscMag extends Magazine {
     private boolean hasDisc;

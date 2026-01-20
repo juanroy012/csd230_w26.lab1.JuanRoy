@@ -1,6 +1,6 @@
-package csd230.lab1.entities;
+package csd230.lab1.JuanRoy.entities;
 
-import csd230.lab1.pojos.SaleableItem;
+import csd230.lab1.JuanRoy.pojos.SaleableItem;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;

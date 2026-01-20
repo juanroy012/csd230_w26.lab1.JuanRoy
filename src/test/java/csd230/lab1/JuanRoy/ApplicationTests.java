@@ -1,5 +1,8 @@
-package csd230.lab1;
+package csd230.lab1.JuanRoy;
 
+import csd230.lab1.JuanRoy.entities.*;
+import csd230.lab1.JuanRoy.nicheEntities.HandheldConsoleEntity;
+import csd230.lab1.JuanRoy.nicheEntities.HomeConsoleEntity;
 import csd230.lab1.nicheEntities.*;
 import csd230.lab1.entities.*;
 import org.junit.jupiter.api.BeforeEach;

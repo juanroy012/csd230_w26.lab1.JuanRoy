@@ -1,6 +1,6 @@
-package csd230.lab1.pojos;
+package csd230.lab1.JuanRoy.pojos;
 
-import csd230.lab1.nicheEntities.HomeConsoleEntity;
+import csd230.lab1.JuanRoy.nicheEntities.HomeConsoleEntity;
 
 import java.util.Objects;
 

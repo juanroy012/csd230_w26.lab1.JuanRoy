@@ -1,13 +1,14 @@
-package csd230.lab1;
+package csd230.lab1.JuanRoy;
 
 import com.github.javafaker.Commerce;
 import com.github.javafaker.Faker;
+import csd230.lab1.JuanRoy.entities.*;
 import csd230.lab1.entities.*;
-import csd230.lab1.nicheEntities.HandheldConsoleEntity;
-import csd230.lab1.nicheEntities.HomeConsoleEntity;
-import csd230.lab1.pojos.SaleableItem;
-import csd230.lab1.repositories.CartEntityRepository;
-import csd230.lab1.repositories.ProductEntityRepository;
+import csd230.lab1.JuanRoy.nicheEntities.HandheldConsoleEntity;
+import csd230.lab1.JuanRoy.nicheEntities.HomeConsoleEntity;
+import csd230.lab1.JuanRoy.pojos.SaleableItem;
+import csd230.lab1.JuanRoy.repositories.CartEntityRepository;
+import csd230.lab1.JuanRoy.repositories.ProductEntityRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
