@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lab 5 Product List</title>
+</head>
+
+<body>
+<h1>Product List</h1>
+<p><a th:href="@{/}">
+    <button type="button">&lt;&lt;</button>
+</a></p>
+
+<p>
+    <a th:href="@{/cart}">View Cart</a>
+</p>
+
+<br/>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.id}">1</td>
+        <td th:text="${product.name}">Description</td>
+        <td th:text="${'$' + product.price}">$0.00</td>
+    </tr>
+
+    </tbody>
+</table>
+
+<p><a th:href="@{/products}">View All Products</a></p>
+</body>
+</html>

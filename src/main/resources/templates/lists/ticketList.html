@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lab 5 Ticket List</title>
+</head>
+
+<body>
+<h1>Library Tickets</h1>
+<p><a th:href="@{/}">
+    <button type="button">&lt;&lt;</button>
+</a></p>
+<!-- Search Form -->
+<form th:action="@{/tickets/search}" method="get">
+    <input type="text" name="description" placeholder="Search by description" />
+    <button type="submit">Search</button>
+</form>
+<br/>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!-- Iterate over the 'tickets' model attribute -->
+    <tr th:each="ticket : ${tickets}">
+        <td th:text="${ticket.id}">1</td>
+        <td th:text="${ticket.description}">Description</td>
+        <td th:text="${'$' + ticket.price}">$0.00</td>
+    </tr>
+
+    </tbody>
+</table>
+
+<p><a th:href="@{/tickets}">View All Tickets</a></p>
+</body>
+</html>

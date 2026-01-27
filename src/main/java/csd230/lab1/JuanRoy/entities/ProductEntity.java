@@ -18,8 +18,12 @@ public abstract class ProductEntity implements Serializable, SaleableItem {
     @Column(name = "product_id", nullable = false)
     private Long id;
 
+    private String name;
+
     @ManyToMany(mappedBy = "products")
     private Set<CartEntity> carts = new HashSet<>();
+
+    public ProductEntity() {}
 
     public Set<CartEntity> getCarts() { return carts; }
 
@@ -29,9 +33,21 @@ public abstract class ProductEntity implements Serializable, SaleableItem {
 
     public void setId(Long id) { this.id = id; }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
-        return "ProductEntity{id=" + id + "} : " + super.toString();
+        return "ProductEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", carts=" + carts +
+                '}';
     }
 
     @Override

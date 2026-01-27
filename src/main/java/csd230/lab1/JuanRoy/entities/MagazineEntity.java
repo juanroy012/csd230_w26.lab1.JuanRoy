@@ -5,7 +5,8 @@ import jakarta.persistence.Entity;
 
 import java.time.LocalDate;
 
-@Entity @DiscriminatorValue("MAGAZINE")
+@Entity
+@DiscriminatorValue("MAGAZINE")
 public class MagazineEntity extends PublicationEntity {
 
     private int orderQty;
@@ -14,7 +15,7 @@ public class MagazineEntity extends PublicationEntity {
 
     public MagazineEntity() {}
 
-    public MagazineEntity(String t, double p, int c, int o, LocalDate d) { super(t, p, c); this.orderQty = o; this.currentIssue = d; }
+    public MagazineEntity(String n, double p, int c, int o, LocalDate d) { super(n, p, c); this.orderQty = o; this.currentIssue = d; }
 
     public int getOrderQty() { return orderQty; }
 

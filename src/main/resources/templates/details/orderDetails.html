@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order</title>
+</head>
+<body>
+<h1>Order List</h1>
+
+<p><a th:href="@{/cart/orders}">
+    <button type="button">&lt;&lt;</button>
+</a></p>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!-- Iterate over the 'books' model attribute -->
+    <tr th:each="product : ${products}">
+        <td th:text="${product.id}">Product ID</td>
+        <td th:text="${product.name}">Name</td>
+        <td th:text="${'$' + product.price}">$0.00</td>
+    </tr>
+    <tr>
+        <td colspan="2">Total Amount</td>
+        <td th:text="${'$' + order.totalAmount}">$0.00</td>
+    </tr>
+
+    </tbody>
+</table>
+
+<a th:href="@{/books}">Back to List</a>
+</body>
+</html>

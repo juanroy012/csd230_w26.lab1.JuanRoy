@@ -10,10 +10,13 @@ classDiagram
     Publication <|-- Magazine
     Magazine <|-- DiscMag
 
+
     GameConsole <|-- HandheldConsole
     GameConsole <|-- HomeConsole
 
+
     Product "many" -- "many" Cart
+    Product "many" -- "many" Order
 
     class Product{
         -Long Id
@@ -37,6 +40,27 @@ classDiagram
         +addProduct()
         +getId()
         +setId()
+        +getProducts()
+        +setProducts()
+        +equals()
+        +hashCode()
+        +toString()
+    }
+
+    class Order{
+        -Long id
+        -Double totalAmount
+        -LocalDateTime orderDate
+        -Set~Product~ products
+
+        +OrderEntity()
+
+        +getId()
+        +setId()
+        +getTotalAmount()
+        +setTotalAmount()
+        +getOrderDate()
+        +setOrderDate()
         +getProducts()
         +setProducts()
         +equals()

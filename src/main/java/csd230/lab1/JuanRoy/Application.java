@@ -3,7 +3,6 @@ package csd230.lab1.JuanRoy;
 import com.github.javafaker.Commerce;
 import com.github.javafaker.Faker;
 import csd230.lab1.JuanRoy.entities.*;
-import csd230.lab1.entities.*;
 import csd230.lab1.JuanRoy.nicheEntities.HandheldConsoleEntity;
 import csd230.lab1.JuanRoy.nicheEntities.HomeConsoleEntity;
 import csd230.lab1.JuanRoy.pojos.SaleableItem;
@@ -44,13 +43,6 @@ public class Application  implements CommandLineRunner {
         String description = cm.material();
         String priceString = faker.commerce().price();
 
-        BookEntity book = new BookEntity(
-                fakeBook.title(),
-                Double.parseDouble(priceString),
-                10,
-                fakeBook.author());
-        ;
-
         MagazineEntity magazine = new MagazineEntity(
                 faker.lorem().word() + " Magazine",
                 12.99,
@@ -79,20 +71,17 @@ public class Application  implements CommandLineRunner {
         CartEntity cart = new CartEntity();
         cartRepository.save(cart);
 
-        CartEntity cart2 = new CartEntity();
-
-
-        cart.addProduct(book);
-        cart.addProduct(magazine);
-        cart.addProduct(ticket);
-        cart2.addProduct(homeConsole);
-        cart2.addProduct(handheldConsole);
-        cart2.addProduct(ticket2);
+        for(int i = 0; i < 5; i++) {
+            BookEntity book = new BookEntity(
+                    fakeBook.title(),
+                    Double.parseDouble(faker.commerce().price()),
+                    10,
+                    fakeBook.author());
+            ;
+            cart.addProduct(book);
+        }
 
         cartRepository.save(cart);
-        cartRepository.save(cart2);
-
-        cart2.getProducts().forEach((SaleableItem::sellItem));
 
         List<ProductEntity> allProducts = productRepository.findAll();
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lab 5 Magazine List</title>
+</head>
+
+<body>
+<h1>Library Magazines</h1>
+<p><a th:href="@{/}">
+    <button type="button">&lt;&lt;</button>
+</a></p>
+
+<p>
+    <a th:href="@{/cart}">View Cart</a>
+</p>
+
+<br/>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Copies</th>
+        <th>Issued</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!-- Iterate over the 'magazines' model attribute -->
+    <tr th:each="magazine : ${magazines}">
+        <td th:text="${magazine.id}">1</td>
+        <td th:text="${magazine.name}">Title</td>
+        <td th:text="${magazine.copies}">Copies</td>
+        <td th:text="${magazine.currentIssue}">Issued</td>
+        <td th:text="${'$' + magazine.price}">$0.00</td>
+    </tr>
+
+    </tbody>
+</table>
+
+<a th:href="@{/magazines}">View All Magazines</a>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Magazine Details</title>
+</head>
+<body>
+<h1>Magazine Details</h1>
+<div th:if="@{/magazines/{id}(id=${magazine.id})}" th:object="${magazine}">
+    <p><strong>ID:</strong> <span th:text="${magazine.id}"></span></p>
+    <p><strong>Title:</strong> <span th:text="${magazine.name}"></span></p>
+    <p><strong>Issued:</strong> <span th:text="${magazine.currentIssue}"></span></p>
+    <p><strong>Price:</strong> <span th:text="${magazine.price}"></span></p>
+    <p><strong>Copies:</strong> <span th:text="${magazine.copies}"></span></p>
+</div>
+<div th:unless="${magazine}">
+    <p>No magazine found.</p>
+</div>
+<a th:href="@{/magazines}">Back to List</a>
+</body>
+</html>

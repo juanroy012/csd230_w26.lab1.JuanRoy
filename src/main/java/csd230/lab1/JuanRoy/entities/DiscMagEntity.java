@@ -5,14 +5,15 @@ import jakarta.persistence.Entity;
 
 import java.time.LocalDate;
 
-@Entity @DiscriminatorValue("DISCMAG")
+@Entity
+@DiscriminatorValue("DISCMAG")
 public class DiscMagEntity extends MagazineEntity {
 
     private boolean hasDisc;
 
     public DiscMagEntity() {}
 
-    public DiscMagEntity(String t, double p, int c, int o, LocalDate d, boolean h) { super(t, p, c, o, d); this.hasDisc = h; }
+    public DiscMagEntity(String n, double p, int c, int o, LocalDate d, boolean h) { super(n, p, c, o, d); this.hasDisc = h; }
 
     public boolean isHasDisc() { return hasDisc; }
 
