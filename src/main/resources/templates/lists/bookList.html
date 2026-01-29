@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Lab 5 Book List</title>
 </head>
 
 <body>
-<h1>Library Books</h1>
+<div style="float:right">
+    <!-- Display logged in user -->
+    Logged in as: <span sec:authentication="name">User</span>
+
+    <!-- Logout Form (Must be POST for security) -->
+    <form th:action="@{/logout}" method="post" style="display:inline;">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+<h1>Book List</h1>
+
 <p><a th:href="@{/}">
     <button type="button">&lt;&lt;</button>
 </a></p>
@@ -17,50 +28,53 @@
 <p>
     <a th:href="@{/cart/orders}">View Order History</a>
 </p>
-
 <div th:if="${errorMessage}" style="color: red; padding: 10px; margin-bottom: 10px;">
     <p th:text="${errorMessage}"></p>
 </div>
 
-<br/>
 <table border="1">
     <thead>
     <tr>
-        <th>ID</th>
         <th>Title</th>
         <th>Author</th>
-        <th>Copies</th>
         <th>Price</th>
-        <th>Cart+</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th>Copies</th>
+        <th colspan="5">Actions</th>
     </tr>
     </thead>
-
     <tbody>
-    <!-- Iterate over the 'books' model attribute -->
     <tr th:each="book : ${books}">
-        <td th:text="${book.id}">1</td>
-        <td th:text="${book.name}">Title</td>
-        <td th:text="${book.author}">Author</td>
-        <td th:text="${book.copies}">Copies</td>
-        <td th:text="${'$' + book.price}">$0.00</td>
-        <td><form th:action="@{/cart/add/{id}(id=${book.id})}" method="post">
-            <button type="submit">Cart+</button></form></td>
-        <td><a th:href="@{/books/edit/{id}(id=${book.id})}">
-            <button type="button">Edit</button></a></td>
-        <td><form th:action="@{/books/delete/{id}(id=${book.id})}" method="post">
-            <button type="submit" style="color: white; background-color: red;">Delete</button></form>
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.price}"></td>
+        <td th:text="${book.copies}"></td>
+        <td><a th:href="@{/books/{id}(id=${book.id})}"><button>Details</button></a></td>
+        <td>
+            <form action="#" th:action="@{/cart/add/{id}(id=${book.id})}" method="post">
+                <input type="hidden" th:value="${book}">
+                <button type="submit">Add to Cart</button>
+            </form>
         </td>
+
+        <!-- ADMIN ACTIONS: Hidden for normal users -->
+        <td sec:authorize="hasRole('ADMIN')">
+            <a th:href="@{/books/edit/{id}(id=${book.id})}"><button type="submit">Edit</button></a>
+        </td>
+        <td sec:authorize="hasRole('ADMIN')">
+            <form action="#" th:action="@{/books/delete/{id}(id=${book.id})}" method="post">
+                <input type="hidden" th:value="${book}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+
     </tr>
-
-
     </tbody>
 </table>
-
-<p><a th:href="@{/books/add}">
-    <button type="button">Add Book</button>
-</a></p>
-
+<br/>
+<!-- Add Book button: Hidden for normal users -->
+<div sec:authorize="hasRole('ADMIN')">
+    <a th:href="@{/books/add}">Add New Book</a>
+</div>
 </body>
+
 </html>

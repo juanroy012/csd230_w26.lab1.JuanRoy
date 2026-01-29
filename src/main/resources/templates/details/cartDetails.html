@@ -22,7 +22,10 @@
         <td th:text="${product.name}"></td>
         <td th:text="${'$' + product.price}"></td>
         <td>
-            <a th:href="@{/cart/remove/{id}(id=${product.id})}">Remove</a>
+            <form action="#" th:action="@{/cart/remove/{id}(id=${product.id})}" method="post">
+                <input type="hidden" th:value="${product}"></input>
+                <button type="submit">Remove</button>
+            </form>
         </td>
     </tr>
     </tbody>
