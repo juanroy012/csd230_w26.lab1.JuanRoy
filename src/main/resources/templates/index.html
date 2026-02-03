@@ -1,82 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lab 5 - Library</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            max-width: 500px;
-            width: 100%;
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-            font-weight: 600;
-        }
-
-        .nav-links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .nav-links a {
-            display: block;
-            padding: 15px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            text-align: center;
-            font-weight: 500;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .nav-links a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-        }
-
-        .nav-links a:active {
-            transform: translateY(-1px);
-        }
-    </style>
+    <title>Library</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
-
 <body>
+<div th:replace="fragments/header :: appHeader"></div>
+
 <div class="container">
-    <h1>🏬 Library</h1>
-    <div class="nav-links">
-        <a th:href="@{/products}">📦 View All Products</a>
-        <a th:href="@{/books}">📚 View All Books</a>
-        <a th:href="@{/magazines}">📰 View All Magazines</a>
-        <a th:href="@{/discMags}">💿 View All Disc Magazines</a>
-        <a th:href="@{/tickets}">🎟️ View All Tickets</a>
+    <div class="card">
+        <h1 style="margin-bottom:18px;">🏬 Library</h1>
+        <div class="grid">
+            <a class="card product-card" th:href="@{/products}">
+                <div>
+                    <h3>📦 View All Products</h3>
+                    <p class="" style="color:var(--muted);">Browse everything.</p>
+                </div>
+            </a>
+
+            <a class="card product-card" th:href="@{/books}">
+                <div>
+                    <h3>📚 View All Books</h3>
+                    <p style="color:var(--muted);">See the book catalog.</p>
+                </div>
+            </a>
+
+            <a class="card product-card" th:href="@{/magazines}">
+                <div>
+                    <h3>📰 View All Magazines</h3>
+                    <p style="color:var(--muted);">Latest magazines.</p>
+                </div>
+            </a>
+
+            <a class="card product-card" th:href="@{/cart/orders}">
+                <div>
+                    <h3>🗃️ View Order History</h3>
+                    <p style="color:var(--muted);">All history</p>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
+
+<footer class="footer">Library App</footer>
 </body>
 </html>

@@ -2,38 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Order</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-<h1>Order List</h1>
+<div th:replace="fragments/header :: appHeader"></div>
 
-<p><a th:href="@{/cart/orders}">
-    <button type="button">&lt;&lt;</button>
-</a></p>
+<div class="container">
+    <div class="card">
+        <h1>Order List</h1>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
-    </tr>
-    </thead>
+        <p><a th:href="@{/cart/orders}">
+            <button type="button">&lt;&lt;</button>
+        </a></p>
 
-    <tbody>
-    <!-- Iterate over the 'books' model attribute -->
-    <tr th:each="product : ${products}">
-        <td th:text="${product.id}">Product ID</td>
-        <td th:text="${product.name}">Name</td>
-        <td th:text="${'$' + product.price}">$0.00</td>
-    </tr>
-    <tr>
-        <td colspan="2">Total Amount</td>
-        <td th:text="${'$' + order.totalAmount}">$0.00</td>
-    </tr>
+        <table style="width:100%; border-collapse: collapse;">
+            <thead>
+            <tr style="text-align:left; border-bottom:1px solid #e6e6e6;">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+            </thead>
 
-    </tbody>
-</table>
+            <tbody>
+            <!-- Iterate over the 'books' model attribute -->
+            <tr th:each="product : ${products}" style="border-bottom:1px solid #f2f4f7;">
+                <td th:text="${product.id}">Product ID</td>
+                <td th:text="${product.name}">Name</td>
+                <td th:text="${'$' + product.price}">$0.00</td>
+            </tr>
+            <tr>
+                <td colspan="2">Total Amount</td>
+                <td th:text="${'$' + order.totalAmount}">$0.00</td>
+            </tr>
 
-<a th:href="@{/books}">Back to List</a>
+            </tbody>
+        </table>
+
+        <a th:href="@{/}">Back to List</a>
+    </div>
+</div>
 </body>
 </html>

@@ -10,6 +10,6 @@ services:
       - 'MYSQL_ROOT_PASSWORD=itstudies12345'
       - 'MYSQL_USER=juan'
     ports:
-      - '3307:3306'
+      - '3308:3306'
     volumes: # stores data in local folder: ./volumes
       - ./volumes/mysql:/var/lib/mysql

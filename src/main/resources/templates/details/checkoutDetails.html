@@ -2,46 +2,58 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Checkout</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-<h1>Checkout Confirmation</h1>
-<div>
-    <p><strong>Order Date:</strong> <span th:text="${order.orderDate}"></span></p>
+<div th:replace="fragments/header :: appHeader"></div>
 
-    <table border="1">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-        </tr>
-        </thead>
+<div class="container">
+    <div class="card">
+        <h1>Checkout Confirmation</h1>
 
-        <tbody>
-        <!-- Iterate over the 'books' model attribute -->
-        <tr th:each="product : ${order.getProducts()}">
-            <td th:text="${product.id}">Product ID</td>
-            <td th:text="${product.name}">Name</td>
-            <td th:text="${'$' + product.price}">$0.00</td>
-        </tr>
-        <tr>
-            <td colspan="2">Total Amount</td>
-            <td th:text="${'$' + order.totalAmount}">$0.00</td>
-        </tr>
+        <div>
+            <p><strong>Order Date:</strong> <span th:text="${order.orderDate}"></span></p>
 
-        </tbody>
-    </table>
+            <table style="width:100%; border-collapse: collapse;">
+                <thead>
+                <tr style="text-align:left; border-bottom:1px solid #e6e6e6;">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
 
+                <tbody>
+                <!-- Iterate over the 'books' model attribute -->
+                <tr th:each="product : ${order.getProducts()}" style="border-bottom:1px solid #f2f4f7;">
+                    <td th:text="${product.id}">Product ID</td>
+                    <td th:text="${product.name}">Name</td>
+                    <td th:text="${'$' + product.price}">$0.00</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Total Amount</td>
+                    <td th:text="${'$' + order.totalAmount}">$0.00</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+
+        <br>
+        <form action="#" th:action="@{/cart/checkout}" th:object="${order}" method="post">
+            <input type="hidden" th:field="*{totalAmount}" th:value="${order.totalAmount}"/>
+            <input type="hidden" th:field="*{orderDate}" th:value="${order.orderDate}"/>
+            <input type="hidden" th:field="*{products}" th:value="${order.products}"/>
+            <button type="submit" class="btn">Confirm</button>
+        </form>
+        <br>
+
+        </div>
+
+        <a th:href="@{/}">Back to List</a>
+    </div>
 </div>
-<br>
-<form action="#" th:action="@{/cart/checkout}" th:object="${order}" method="post">
-        <input type="hidden" th:field="*{totalAmount}" th:value="${order.totalAmount}"/>
-        <input type="hidden" th:field="*{orderDate}" th:value="${order.orderDate}"/>
-        <input type="hidden" th:field="*{products}" th:value="${order.products}"/>
-    <button type="submit">Confirm</button>
-</form>
-<br>
 
-<a th:href="@{/books}">Back to List</a>
+<footer class="footer">Library App</footer>
 </body>
 </html>

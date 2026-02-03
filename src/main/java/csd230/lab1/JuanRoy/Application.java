@@ -3,35 +3,45 @@ package csd230.lab1.JuanRoy;
 import com.github.javafaker.Commerce;
 import com.github.javafaker.Faker;
 import csd230.lab1.JuanRoy.entities.*;
-import csd230.lab1.JuanRoy.nicheEntities.HandheldConsoleEntity;
-import csd230.lab1.JuanRoy.nicheEntities.HomeConsoleEntity;
-import csd230.lab1.JuanRoy.pojos.SaleableItem;
 import csd230.lab1.JuanRoy.repositories.CartEntityRepository;
 import csd230.lab1.JuanRoy.repositories.ProductEntityRepository;
+import csd230.lab1.JuanRoy.repositories.UserEntityRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Random;
+
+
 
 @SpringBootApplication
-public class Application  implements CommandLineRunner {
+public class Application implements CommandLineRunner {
     private final ProductEntityRepository productRepository;
     private final CartEntityRepository cartRepository;
+    private final UserEntityRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
 
     public Application(ProductEntityRepository productRepository,
-                       CartEntityRepository cartRepository
+                       CartEntityRepository cartRepository,
+                       UserEntityRepository userRepository,
+                       PasswordEncoder passwordEncoder
     ) {
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
+
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
+
+
     @Override
     @Transactional
     public void run(String... args) throws Exception {
@@ -43,47 +53,50 @@ public class Application  implements CommandLineRunner {
         String description = cm.material();
         String priceString = faker.commerce().price();
 
+
+        BookEntity book = new BookEntity(
+                fakeBook.title(),
+                Double.parseDouble(priceString),
+                10,
+                fakeBook.author());
+        ;
+
+
+        // --- START NEW CODE ---
         MagazineEntity magazine = new MagazineEntity(
                 faker.lorem().word() + " Magazine",
                 12.99,
                 20,
                 50,
-                LocalDate.now()
+                LocalDateTime.now()
         );
 
-        Random random = new Random();
-        TicketEntity ticket = new TicketEntity(
-                "This is a ticket for cool event # " + Math.abs(random.nextInt()),
-                number.randomDouble(2, 10, 100)
-        );
-
-        TicketEntity ticket2 = new TicketEntity(
-                "This is a ticket for cool event # " + Math.abs(random.nextInt()),
-                number.randomDouble(2, 10, 100)
-        );
-
-
-
-        HomeConsoleEntity homeConsole = new HomeConsoleEntity("PlayStation 5", "Sony", 799.99, 30, "4K");
-
-        HandheldConsoleEntity handheldConsole = new HandheldConsoleEntity("Switch 2", "Nintendo", 399.99, 50, 3);
 
         CartEntity cart = new CartEntity();
         cartRepository.save(cart);
 
-        for(int i = 0; i < 5; i++) {
-            BookEntity book = new BookEntity(
-                    fakeBook.title(),
-                    Double.parseDouble(faker.commerce().price()),
-                    10,
-                    fakeBook.author());
-            ;
-            cart.addProduct(book);
-        }
 
+        // create a book
+        // add book to the cart
+        cart.addProduct(book);
+        // book.setCart(cart); // dont have to set cart because cart.addProduct() does it for you
         cartRepository.save(cart);
 
+
+        cart.addProduct(magazine);
+        // magazine.setCart(cart);
+        cartRepository.save(cart);
+
+
+
+
+        // productRepository.save(book);
+
+
+
+
         List<ProductEntity> allProducts = productRepository.findAll();
+
 
         for (ProductEntity p : allProducts) {
             System.out.println(p.toString());
@@ -96,6 +109,26 @@ public class Application  implements CommandLineRunner {
             }
         }
 
+
+        // ------------------------------------
+        // CREATE USERS (Lecture 2.6)
+        // ------------------------------------
+
+
+        // Admin User (Can Add/Edit/Delete)
+        UserEntity admin = new UserEntity("admin", passwordEncoder.encode("admin"), "ADMIN");
+        userRepository.save(admin);
+
+
+        // Regular User (Can only View/Buy)
+        UserEntity user = new UserEntity("user", passwordEncoder.encode("user"), "USER");
+        userRepository.save(user);
+
+
+        System.out.println("Default users created: admin/admin and user/user");
+
+
     }
+
 
 }

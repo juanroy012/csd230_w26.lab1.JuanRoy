@@ -1,0 +1,209 @@
+/* Shared application styles */
+:root{
+  /* Minimal/desaturated palette */
+  --bg1: #f7f7f8;
+  --accent: #111827; /* dark slate for primary buttons */
+  --accent-2: #374151; /* secondary dark gray */
+  --card: #ffffff;
+  --muted: #6b7280;
+  --success: #10b981;
+  --danger: #ef4444;
+}
+
+*{box-sizing: border-box}
+body{
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
+  color: #111827;
+  margin: 0;
+  padding: 0;
+  line-height: 1.45;
+}
+
+header.app-header{
+  /* Minimal header: light background with subtle border */
+  background: var(--card);
+  color: var(--accent);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid #e6e9ee;
+}
+
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.header-left h1{
+  font-size:1.1rem;
+  margin:0;
+}
+
+.header-nav a{
+  color: var(--muted);
+  text-decoration: none;
+  margin-left: 12px;
+  font-weight: 500;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.header-nav a:hover{
+  background: rgba(17,24,39,0.03);
+  color: var(--accent-2);
+}
+
+.header-actions{
+  display:flex;
+  gap:12px;
+}
+
+.header-actions .btn{
+  padding: 10px 16px;
+  font-weight:700;
+  box-shadow: 0 6px 14px rgba(17,24,39,0.06);
+}
+
+.container{
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 20px;
+}
+
+.card{
+  background: var(--card);
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(16,24,40,0.04);
+  padding: 18px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+  gap:18px;
+}
+
+.product-card{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.product-card img{
+  width:100%;
+  border-radius:8px;
+  object-fit:cover;
+  height:160px;
+}
+
+/* Button base */
+button, input[type=submit], .btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:600;
+  cursor:pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+  min-height: 40px;
+  line-height: 1;
+}
+
+.button-muted{ /* a less prominent button */
+  background: #f3f4f6;
+  color: var(--accent-2);
+  border: 1px solid #e6e9ee;
+  padding: 10px 16px; /* match primary */
+}
+
+.btn-danger{
+  background: var(--danger);
+  color: white;
+  padding: 10px 16px; /* match primary */
+}
+
+/* Sign-out button style to match Cart prominence */
+.btn-signout{
+  background: var(--accent-2);
+  color: white;
+  padding: 10px 16px;
+  font-weight:700;
+  border-radius:8px;
+  box-shadow: 0 6px 14px rgba(17,24,39,0.08);
+}
+
+/* Unified typography for action buttons */
+.btn, .button-muted, .btn-danger, .btn-signout, a.btn{
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Action column and group */
+.actions-col{
+  text-align: center !important;
+  width: 260px;
+}
+
+.action-cell{
+  text-align: center;
+  vertical-align: middle;
+  padding: 12px 6px;
+}
+
+.action-group{
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-group .btn, .action-group a.btn{
+  min-width: 90px; /* increased so Details/Add/Edit/Delete align */
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Ensure anchor elements used as buttons look identical */
+a.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Make the sign out especially visible (slightly red border) */
+.header-actions form button.btn{
+  border: 1px solid rgba(239,68,68,0.08);
+}
+
+.footer{
+  text-align:center;
+  color:var(--muted);
+  padding:28px 12px;
+}
+
+/* Utility spacing */
+.mt-8{margin-top:8px}
+.mt-12{margin-top:12px}
+.mb-12{margin-bottom:12px}
+
+/* small screens */
+@media (max-width:640px){
+  .header-left h1{font-size:1rem}
+  .container{padding:12px;margin:12px}
+  .grid{grid-template-columns: 1fr}
+  .action-group{gap:6px}
+}
+
+.form-row {
+    margin-bottom: 16px;
+}

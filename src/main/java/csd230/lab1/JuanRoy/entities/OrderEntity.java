@@ -20,6 +20,11 @@ public class OrderEntity {
 
     private LocalDateTime orderDate = LocalDateTime.now();
 
+    // An Order belongs to a User; a User can have many Orders => ManyToOne
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
     @ManyToMany (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "order_products",
@@ -62,4 +67,8 @@ public class OrderEntity {
     public void setProducts(Set<ProductEntity> products) {
         this.products = products;
     }
+
+    public UserEntity getUser() { return user; }
+
+    public void setUser(UserEntity user) { this.user = user; }
 }

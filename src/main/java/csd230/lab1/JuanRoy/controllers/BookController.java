@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
+
 @Controller
 @RequestMapping("/books")
 public class BookController {
@@ -21,15 +24,17 @@ public class BookController {
     private CartEntityRepository cartRepository;
 
     @GetMapping
-    public String getAllBook(Model model) {
+    public String getAllBook(Model model, HttpServletRequest request) {
         model.addAttribute("books", bookRepository.findAll());
+        model.addAttribute("currentUri", request.getRequestURI());
         return "/lists/bookList";
     }
 
     @GetMapping("/{id}")
-    public String getBookById(@PathVariable Long id, Model model) {
+    public String getBookById(@PathVariable Long id, Model model, HttpServletRequest request) {
         BookEntity book = bookRepository.findById(id).orElse(null);
         model.addAttribute("book", book);
+        model.addAttribute("currentUri", request.getRequestURI());
         return "/details/bookDetails";
     }
 
@@ -67,13 +72,11 @@ public class BookController {
 
     @PostMapping("/delete/{id}")
     public String deleteBook(@PathVariable long id, RedirectAttributes redirectAttributes) {
-        CartEntity cart = cartRepository.findById(1L).orElse(null);
+        List<CartEntity> carts = cartRepository.findAll();
         BookEntity book = bookRepository.findById(id);
 
-        // Check if in cart
-        if (cart != null && book != null && cart.getProducts().contains(book)) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Cannot delete: Item is in the cart!");
-            return "redirect:/books";
+        for(CartEntity cart: carts) {
+            cart.getProducts().remove(book);
         }
 
         try {
@@ -83,17 +86,6 @@ public class BookController {
             redirectAttributes.addFlashAttribute("errorMessage", "Cannot delete: Item is linked to a completed Order!");
         }
 
-        return "redirect:/books";
-    }
-
-    @PostMapping("/addToCart/{id}")
-    public String addBookToCart(@PathVariable Long id) {
-        CartEntity cart = cartRepository.findById(1L).orElse(null);
-        BookEntity book = bookRepository.findById(id).orElse(null);
-        if(cart != null && book != null && book.getCopies() != 0) {
-            cart.addProduct(book);
-            cartRepository.save(cart);
-        }
         return "redirect:/books";
     }
 }
