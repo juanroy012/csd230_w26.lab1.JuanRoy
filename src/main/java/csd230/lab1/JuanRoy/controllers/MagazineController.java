@@ -1,6 +1,7 @@
 package csd230.lab1.JuanRoy.controllers;
 
 import csd230.lab1.JuanRoy.entities.CartEntity;
+import csd230.lab1.JuanRoy.entities.DiscMagEntity;
 import csd230.lab1.JuanRoy.entities.MagazineEntity;
 import csd230.lab1.JuanRoy.repositories.CartEntityRepository;
 import csd230.lab1.JuanRoy.repositories.MagazineEntityRepository;
@@ -25,7 +26,14 @@ public class MagazineController {
 
     @GetMapping
     public String getAllMagazine(Model model, HttpServletRequest request) {
-        model.addAttribute("magazines", magazineRepository.findAll());
+        List<MagazineEntity> magazines = magazineRepository.findAll();
+        for(MagazineEntity mag : magazines) {
+            if (mag instanceof DiscMagEntity) {
+                magazines.remove(mag);
+                break;
+            }
+        }
+        model.addAttribute("magazines", magazines);
         model.addAttribute("currentUri", request.getRequestURI());
         return "/lists/magazineList";
     }

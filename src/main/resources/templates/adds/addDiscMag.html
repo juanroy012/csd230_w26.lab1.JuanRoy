@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add Magazine</title>
+    <title>Add Disc Magazine</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="icon" th:href="@{/favicon.png}">
 </head>
@@ -16,7 +16,7 @@
             <button type="button">&lt;&lt;</button>
         </a></p>
 
-        <form action="#" th:action="@{/magazines/add}" th:object="${magazine}" method="post">
+        <form action="#" th:action="@{/discMags/add}" th:object="${discMag}" method="post">
             <div class="form-row">
                 <label>Title: <input type="text" th:field="*{name}" required /></label>
             </div>
@@ -32,10 +32,13 @@
             <div class="form-row">
                 <label>Order Quantity: <input type="number" th:field="*{orderQty}" required /></label>
             </div>
+            <div class="form-row">
+                <label>Has Disc: <input type="checkbox" th:field="*{hasDisc}" required /></label>
+            </div>
             <button type="submit" class="btn">Add Magazine</button>
         </form>
         <br/>
-        <a th:href="@{/magazines}">Back to List</a>
+        <a th:href="@{/discMags}">Back to List</a>
     </div>
 </div>
 </body>

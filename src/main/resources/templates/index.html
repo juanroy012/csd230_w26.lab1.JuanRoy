@@ -3,6 +3,7 @@
 <head>
     <title>Library</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="icon" th:href="@{/favicon.png}">
 </head>
 <body>
 <div th:replace="fragments/header :: appHeader"></div>
@@ -29,6 +30,13 @@
                 <div>
                     <h3>📰 View All Magazines</h3>
                     <p style="color:var(--muted);">Latest magazines.</p>
+                </div>
+            </a>
+
+            <a class="card product-card" th:href="@{/discMags}">
+                <div>
+                    <h3>📰💽 View All Disc Magazines</h3>
+                    <p style="color:var(--muted);">Latest disc magazines.</p>
                 </div>
             </a>
 

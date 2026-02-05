@@ -1,5 +1,6 @@
 <div th:fragment="appHeader" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <!-- Header only appears when the user is authenticated -->
+
     <header class="app-header" sec:authorize="isAuthenticated()">
         <div class="header-left">
             <h1>Library</h1>
@@ -19,7 +20,6 @@
         </div>
     </header>
 
-    <!-- Minimal header for anonymous users: show login/register buttons -->
     <header class="app-header" sec:authorize="isAnonymous()">
         <div class="header-left">
             <h1>Library</h1>

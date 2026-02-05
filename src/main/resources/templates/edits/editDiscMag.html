@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add Magazine</title>
+    <title>Edit Disc Magazine</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link rel="icon" th:href="@{/favicon.png}">
 </head>
@@ -10,13 +10,10 @@
 
 <div class="container">
     <div class="card">
-        <h1>Add New Magazine</h1>
+        <h1>Edit Disc Magazine</h1>
+        <form action="#" th:action="@{/discMags/edit/{id}(id=${discMag.id})}" th:object="${discMag}" method="post">
+            <input type="hidden" th:field="*{id}" />
 
-        <p><a th:href="@{/magazines}">
-            <button type="button">&lt;&lt;</button>
-        </a></p>
-
-        <form action="#" th:action="@{/magazines/add}" th:object="${magazine}" method="post">
             <div class="form-row">
                 <label>Title: <input type="text" th:field="*{name}" required /></label>
             </div>
@@ -32,10 +29,13 @@
             <div class="form-row">
                 <label>Order Quantity: <input type="number" th:field="*{orderQty}" required /></label>
             </div>
-            <button type="submit" class="btn">Add Magazine</button>
+            <div class="form-row">
+                <label>Has Disc: <input type="checkbox" th:field="*{hasDisc}" required /></label>
+            </div>
+            <button type="submit" class="btn">Update Disc Magazine</button>
         </form>
         <br/>
-        <a th:href="@{/magazines}">Back to List</a>
+        <a th:href="@{/discMags}">Back to List</a>
     </div>
 </div>
 </body>
