@@ -4,6 +4,9 @@ import csd230.lab1.JuanRoy.entities.BookEntity;
 import csd230.lab1.JuanRoy.entities.CartEntity;
 import csd230.lab1.JuanRoy.repositories.BookEntityRepository;
 import csd230.lab1.JuanRoy.repositories.CartEntityRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,16 +16,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@Tag(name = "Books", description = "Operations related to book management")
 @Controller
 @RequestMapping("/books")
 public class BookController {
-
     @Autowired
     private BookEntityRepository bookRepository;
 
     @Autowired
     private CartEntityRepository cartRepository;
 
+    @Operation(summary = "Get all books", description = "Retrieve a list of all books available in the system.")
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved list of books")
     @GetMapping
     public String getAllBook(Model model, HttpServletRequest request) {
         model.addAttribute("books", bookRepository.findAll());
