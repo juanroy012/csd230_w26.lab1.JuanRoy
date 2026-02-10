@@ -27,6 +27,8 @@ public abstract class ProductEntity implements Serializable, SaleableItem {
 
     public ProductEntity() {}
 
+    public ProductEntity(String n) { this.name = n; }
+
     public Set<CartEntity> getCarts() { return carts; }
 
     public void setCarts(Set<CartEntity> carts) { this.carts = carts; }

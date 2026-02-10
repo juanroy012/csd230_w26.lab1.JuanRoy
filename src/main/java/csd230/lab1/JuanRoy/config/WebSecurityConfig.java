@@ -25,7 +25,7 @@ public class WebSecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
         http
                 .authorizeHttpRequests((requests) -> requests
                         // Existing public endpoints
@@ -34,11 +34,6 @@ public class WebSecurityConfig {
                                 "/css/**",
                                 "/js/**",
                                 "/api/rest/**",           // allow unrestricted access to rest api for testing
-                                "/api/rest/books/**"
-                        ).permitAll()
-
-                        // --- ADD THESE LINES FOR SWAGGER ---
-                        .requestMatchers(
                                 "/v3/api-docs",          // The actual JSON data
                                 "/v3/api-docs/**",       // Support for groups
                                 "/swagger-ui/**",        // UI static resources
@@ -66,8 +61,8 @@ public class WebSecurityConfig {
         // Required for H2 Console to work with Spring Security (it uses frames)
         http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()));
 
-        // Disable CSRF specifically for H2 Console
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"));
+        // Disable CSRF specifically for H2 Console and for REST API endpoints used by Swagger / curl during testing
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**", "/api/rest/**"));
 
 
         return http.build();
@@ -88,5 +83,3 @@ public class WebSecurityConfig {
         return authProvider;
     }
 }
-
-

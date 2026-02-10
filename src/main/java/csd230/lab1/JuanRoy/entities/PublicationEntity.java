@@ -14,7 +14,7 @@ public abstract class PublicationEntity extends ProductEntity {
 
     public PublicationEntity() {}
 
-    public PublicationEntity(String n, double p, int c) { this.setName(n); this.price = p; this.copies = c; }
+    public PublicationEntity(String name, double price, int copies) { super(name); this.price = price; this.copies = copies; }
 
     @Override public void sellItem() {
         if (copies > 0) { copies--; System.out.println("Sold '" + getName() + "'. Remaining copies: " + copies); }
@@ -23,11 +23,11 @@ public abstract class PublicationEntity extends ProductEntity {
 
     @Override public double getPrice() { return price; }
 
-    public void setPrice(double p) { this.price = p; }
+    public void setPrice(double price) { this.price = price; }
 
     public int getCopies() { return copies; }
 
-    public void setCopies(int c) { this.copies = c; }
+    public void setCopies(int copies) { this.copies = copies; }
 
     @Override public String toString() { return "Pub{title='" + getName() + "', price=" + price + ", copies=" + copies + "}"; }
 }

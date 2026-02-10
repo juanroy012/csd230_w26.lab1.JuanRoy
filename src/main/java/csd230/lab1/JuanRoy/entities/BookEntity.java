@@ -11,11 +11,11 @@ public class BookEntity extends PublicationEntity {
 
     public BookEntity() {}
 
-    public BookEntity(String n, double p, int c, String a) { super(n, p, c); this.author = a; }
+    public BookEntity(String name, double price, int copies, String author) { super(name, price, copies); this.author = author; }
 
     public String getAuthor() { return author; }
 
-    public void setAuthor(String a) { this.author = a; }
+    public void setAuthor(String author) { this.author = author; }
 
     @Override public String toString() { return "Book{author='" + author + "', " + super.toString() + "}"; }
 }
