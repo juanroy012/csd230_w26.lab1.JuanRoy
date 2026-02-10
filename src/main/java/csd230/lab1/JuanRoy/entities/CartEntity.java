@@ -1,5 +1,6 @@
 package csd230.lab1.JuanRoy.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;

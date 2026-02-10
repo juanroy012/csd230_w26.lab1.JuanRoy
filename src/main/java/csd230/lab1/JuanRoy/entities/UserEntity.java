@@ -1,5 +1,6 @@
 package csd230.lab1.JuanRoy.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,6 +11,7 @@ public class UserEntity {
     private Long id;
     @Column(unique = true, nullable = false)
     private String username;
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
     private String role; // e.g., "ADMIN", "USER"

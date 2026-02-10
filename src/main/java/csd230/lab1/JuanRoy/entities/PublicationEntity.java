@@ -1,9 +1,11 @@
 package csd230.lab1.JuanRoy.entities;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Entity;
+import jakarta.persistence.DiscriminatorValue;
 
-@MappedSuperclass
+@Entity
+@DiscriminatorValue("PUBLICATION")
 public abstract class PublicationEntity extends ProductEntity {
 
     @Column(name = "pub_price") private double price;

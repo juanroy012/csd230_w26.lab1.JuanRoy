@@ -1,5 +1,6 @@
 package csd230.lab1.JuanRoy.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import csd230.lab1.JuanRoy.pojos.SaleableItem;
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ public abstract class ProductEntity implements Serializable, SaleableItem {
 
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "products")
     private Set<CartEntity> carts = new HashSet<>();
 
@@ -46,18 +48,20 @@ public abstract class ProductEntity implements Serializable, SaleableItem {
         return "ProductEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", carts=" + carts +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (!(o instanceof ProductEntity that)) return false;
-        return Objects.equals(id, that.id) && Objects.equals(carts, that.carts);
+        // Use only identifier for equality to avoid expensive/recursive collection comparisons
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, carts);
+        // Use identifier only
+        return Objects.hashCode(id);
     }
 }

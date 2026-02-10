@@ -1,8 +1,11 @@
 package csd230.lab1.JuanRoy;
 
+
 import com.github.javafaker.Commerce;
 import com.github.javafaker.Faker;
-import csd230.lab1.JuanRoy.entities.*;
+import csd230.lab1.JuanRoy.entities.BookEntity;
+import csd230.lab1.JuanRoy.entities.CartEntity;
+import csd230.lab1.JuanRoy.entities.UserEntity;
 import csd230.lab1.JuanRoy.repositories.CartEntityRepository;
 import csd230.lab1.JuanRoy.repositories.ProductEntityRepository;
 import csd230.lab1.JuanRoy.repositories.UserEntityRepository;
@@ -10,11 +13,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @SpringBootApplication
@@ -51,63 +53,27 @@ public class Application implements CommandLineRunner {
         com.github.javafaker.Book fakeBook = faker.book();
         String name = cm.productName();
         String description = cm.material();
-        String priceString = faker.commerce().price();
 
+        for (int i = 0; i < 10; i++) {
+            // We call the faker methods inside the loop so each book gets unique data
+            String title = faker.book().title();
+            String author = faker.book().author();
+            String priceString = faker.commerce().price();
 
-        BookEntity book = new BookEntity(
-                fakeBook.title(),
-                Double.parseDouble(priceString),
-                10,
-                fakeBook.author());
-        ;
+            // Create the book entity with the random data
+            BookEntity book = new BookEntity(
+                    title,
+                    Double.parseDouble(priceString),
+                    10,      // Defaulting to 10 copies each
+                    author
+            );
 
+            // Save to database
+            productRepository.save(book);
 
-        // --- START NEW CODE ---
-        MagazineEntity magazine = new MagazineEntity(
-                faker.lorem().word() + " Magazine",
-                12.99,
-                20,
-                50,
-                LocalDateTime.now()
-        );
-
-
-        CartEntity cart = new CartEntity();
-        cartRepository.save(cart);
-
-
-        // create a book
-        // add book to the cart
-        cart.addProduct(book);
-        // book.setCart(cart); // dont have to set cart because cart.addProduct() does it for you
-        cartRepository.save(cart);
-
-
-        cart.addProduct(magazine);
-        // magazine.setCart(cart);
-        cartRepository.save(cart);
-
-
-
-
-        // productRepository.save(book);
-
-
-
-
-        List<ProductEntity> allProducts = productRepository.findAll();
-
-
-        for (ProductEntity p : allProducts) {
-            System.out.println(p.toString());
+            System.out.println("Saved Book " + (i + 1) + ": " + title + " by " + author);
         }
-        List<CartEntity> allCarts = cartRepository.findAll();
-        for (CartEntity c : allCarts) {
-            System.out.println(c.toString());
-            for (ProductEntity p : c.getProducts()) {
-                System.out.println(p.toString());
-            }
-        }
+
 
 
         // ------------------------------------
@@ -127,8 +93,22 @@ public class Application implements CommandLineRunner {
 
         System.out.println("Default users created: admin/admin and user/user");
 
-
+        // Check if a cart exists, if not, create one
+        if (cartRepository.count() == 0) {
+            CartEntity defaultCart = new CartEntity();
+            cartRepository.save(defaultCart);
+            System.out.println("Default Cart created with ID: " + defaultCart.getId());
+        }
     }
-
-
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                // Allow access to all /api endpoints from any origin
+                registry.addMapping("/api/**").allowedOrigins("*");
+            }
+        };
+    }
 }
+
