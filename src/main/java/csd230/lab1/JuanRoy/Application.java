@@ -5,6 +5,7 @@ import com.github.javafaker.Commerce;
 import com.github.javafaker.Faker;
 import csd230.lab1.JuanRoy.entities.BookEntity;
 import csd230.lab1.JuanRoy.entities.CartEntity;
+import csd230.lab1.JuanRoy.entities.MagazineEntity;
 import csd230.lab1.JuanRoy.entities.UserEntity;
 import csd230.lab1.JuanRoy.repositories.CartEntityRepository;
 import csd230.lab1.JuanRoy.repositories.ProductEntityRepository;
@@ -17,6 +18,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.time.LocalDateTime;
 
 
 @SpringBootApplication
@@ -72,6 +75,28 @@ public class Application implements CommandLineRunner {
             productRepository.save(book);
 
             System.out.println("Saved Book " + (i + 1) + ": " + title + " by " + author);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            // We call the faker methods inside the loop so each book gets unique data
+            String title = faker.book().title();
+            int copies = (int)(Math.random() * 101);
+            int orderQty = (int)(Math.random() * 101);
+            String priceString = faker.commerce().price();
+
+            // Create the book entity with the random data
+            MagazineEntity magazine = new MagazineEntity(
+                    title,
+                    Double.parseDouble(priceString),
+                    copies,
+                    orderQty,
+                    LocalDateTime.now()
+            );
+
+            // Save to database
+            productRepository.save(magazine);
+
+            System.out.println("Saved Magazine " + (i + 1) + ": " + title + " on " + magazine.getCurrentIssue());
         }
 
 

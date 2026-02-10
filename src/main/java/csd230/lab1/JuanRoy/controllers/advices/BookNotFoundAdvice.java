@@ -1,5 +1,6 @@
-package csd230.lab1.JuanRoy.controllers;
+package csd230.lab1.JuanRoy.controllers.advices;
 
+import csd230.lab1.JuanRoy.controllers.exceptions.BookNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

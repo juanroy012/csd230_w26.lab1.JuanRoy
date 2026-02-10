@@ -1,4 +1,4 @@
-package csd230.lab1.JuanRoy.controllers;
+package csd230.lab1.JuanRoy.controllers.exceptions;
 
 public class BookNotFoundException extends RuntimeException {
     public BookNotFoundException(Long id) {
