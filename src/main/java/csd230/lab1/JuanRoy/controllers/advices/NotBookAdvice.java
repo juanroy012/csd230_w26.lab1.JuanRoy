@@ -1,16 +1,15 @@
 package csd230.lab1.JuanRoy.controllers.advices;
 
-import csd230.lab1.JuanRoy.controllers.exceptions.BookNotFoundException;
+import csd230.lab1.JuanRoy.controllers.exceptions.NotBookException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-class BookNotFoundAdvice {
-    @ExceptionHandler(BookNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    String bookNotFoundHandler(BookNotFoundException ex) {
-        return ex.getMessage();
-    }
+public class NotBookAdvice {
+    @ExceptionHandler(NotBookException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_CONTENT)
+    String notBookHandler(NotBookException ex) { return ex.getMessage(); }
+
 }

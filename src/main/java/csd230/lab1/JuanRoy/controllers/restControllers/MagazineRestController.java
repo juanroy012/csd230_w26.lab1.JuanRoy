@@ -1,15 +1,17 @@
-package csd230.lab1.JuanRoy.controllers;
+package csd230.lab1.JuanRoy.controllers.restControllers;
 
 import csd230.lab1.JuanRoy.controllers.exceptions.MagazineNotFoundException;
+import csd230.lab1.JuanRoy.controllers.exceptions.NotMagazineException;
 import csd230.lab1.JuanRoy.entities.MagazineEntity;
+import csd230.lab1.JuanRoy.entities.ProductEntity;
 import csd230.lab1.JuanRoy.repositories.MagazineEntityRepository;
+import csd230.lab1.JuanRoy.repositories.ProductEntityRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Tag(name="Magazine REST API", description="JSON API for managing magazines")
 @RestController
@@ -17,14 +19,15 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class MagazineRestController {
     private final MagazineEntityRepository magazineRepository;
+    private final ProductEntityRepository productRepository;
 
-    public MagazineRestController(MagazineEntityRepository magazineRepository) {
+    public MagazineRestController(MagazineEntityRepository magazineRepository, ProductEntityRepository productRepository) {
         this.magazineRepository = magazineRepository;
+        this.productRepository = productRepository;
     }
 
     @Operation(summary = "Get all magazines")
     @ApiResponse(responseCode = "200", description = "Magazine list fetched successfully")
-    @ApiResponse(responseCode = "404", description = "Magazines not found")
     @GetMapping
     public List<MagazineEntity> all() {
         return magazineRepository.findAll();
@@ -35,8 +38,11 @@ public class MagazineRestController {
     @ApiResponse(responseCode = "404", description = "Magazine not found")
     @GetMapping("/{id}")
     public MagazineEntity getMagazine(@PathVariable Long id) {
-        return magazineRepository.findById(id)
-                .orElseThrow(() -> new MagazineNotFoundException(id));
+        ProductEntity product = productRepository.findById(id).orElseThrow(()-> new MagazineNotFoundException(id));
+        if (!(product instanceof MagazineEntity)) {
+            throw new NotMagazineException(id);
+        };
+        return (MagazineEntity) product;
     }
 
     @Operation(summary = "Create a new magazine")
@@ -53,6 +59,10 @@ public class MagazineRestController {
     @ApiResponse(responseCode = "400", description = "Bad request - invalid payload")
     @PutMapping("/{id}")
     public MagazineEntity updateMagazine (@PathVariable Long id, @RequestBody MagazineEntity updatedMagazine) {
+        ProductEntity product = productRepository.findById(id).orElseThrow(()-> new MagazineNotFoundException(id));
+        if (!(product instanceof MagazineEntity)) {
+            throw new NotMagazineException(id);
+        };
         return magazineRepository.findById(id)
                 .map(magazine -> {
                     magazine.setName(updatedMagazine.getName());
@@ -73,9 +83,12 @@ public class MagazineRestController {
     @ApiResponse(responseCode = "204", description = "Magazine deleted (no content)")
     @ApiResponse(responseCode = "404", description = "Magazine not found")
     @DeleteMapping("/{id}")
-    public String deleteMagazine(@PathVariable long id) {
-        MagazineEntity magazine = magazineRepository.findById(id);
+    public String deleteMagazine(@PathVariable Long id) {
+        ProductEntity product = productRepository.findById(id).orElseThrow(()-> new MagazineNotFoundException(id));
+        if (!(product instanceof MagazineEntity)) {
+            throw new NotMagazineException(id);
+        };
         magazineRepository.deleteById(id);
-        return "Magazine with the ID: " + magazine.getId() + " has been deleted";
+        return "Magazine with the ID: " + id + " has been deleted";
     }
 }
