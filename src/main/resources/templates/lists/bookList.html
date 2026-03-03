@@ -45,8 +45,8 @@
                             <input type="hidden" name="returnTo" th:value="${currentUri}" />
                             <button type="submit" class="button-muted">Add</button>
                         </form>
-                        <a sec:authorize="hasRole('ADMIN')" th:href="@{/books/edit/{id}(id=${book.id})}" class="btn button-muted">Edit</a>
-                        <form sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/books/delete/{id}(id=${book.id})}" method="post" style="display:inline;">
+                        <a th:href="@{/books/edit/{id}(id=${book.id})}" class="btn button-muted">Edit</a>
+                        <form action="#" th:action="@{/books/delete/{id}(id=${book.id})}" method="post" style="display:inline;">
                             <input type="hidden" th:value="${book}">
                             <button type="submit" class="btn-danger">Delete</button>
                         </form>
@@ -58,7 +58,7 @@
         </table>
         <br/>
         <!-- Add Book button: Hidden for normal users -->
-        <div sec:authorize="hasRole('ADMIN')">
+        <div>
             <a th:href="@{/books/add}">Add New Book</a>
         </div>
     </div>

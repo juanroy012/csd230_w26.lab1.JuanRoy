@@ -47,8 +47,8 @@
                             <input type="hidden" name="returnTo" th:value="${currentUri}" />
                             <button type="submit" class="button-muted">Add</button>
                         </form>
-                        <a sec:authorize="hasRole('ADMIN')" th:href="@{/magazines/edit/{id}(id=${magazine.id})}" class="btn button-muted">Edit</a>
-                        <form sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/magazines/delete/{id}(id=${magazine.id})}" method="post" style="display:inline;">
+                        <a th:href="@{/magazines/edit/{id}(id=${magazine.id})}" class="btn button-muted">Edit</a>
+                        <form action="#" th:action="@{/magazines/delete/{id}(id=${magazine.id})}" method="post" style="display:inline;">
                             <input type="hidden" th:value="${magazine}">
                             <button type="submit" class="btn-danger">Delete</button>
                         </form>
@@ -60,7 +60,7 @@
         </table>
         <br/>
         <!-- Add Magazine button: Hidden for normal users -->
-        <div sec:authorize="hasRole('ADMIN')">
+        <div>
             <a th:href="@{/magazines/add}">Add New Magazine</a>
         </div>
     </div>

@@ -49,8 +49,8 @@
                             <input type="hidden" name="returnTo" th:value="${currentUri}" />
                             <button type="submit" class="button-muted">Add</button>
                         </form>
-                        <a sec:authorize="hasRole('ADMIN')" th:href="@{/discMags/edit/{id}(id=${discMag.id})}" class="btn button-muted">Edit</a>
-                        <form sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/discMags/delete/{id}(id=${discMag.id})}" method="post" style="display:inline;">
+                        <a th:href="@{/discMags/edit/{id}(id=${discMag.id})}" class="btn button-muted">Edit</a>
+                        <form action="#" th:action="@{/discMags/delete/{id}(id=${discMag.id})}" method="post" style="display:inline;">
                             <input type="hidden" th:value="${discMag}">
                             <button type="submit" class="btn-danger">Delete</button>
                         </form>
@@ -62,7 +62,7 @@
         </table>
         <br/>
         <!-- Add Magazine button: Hidden for normal users -->
-        <div sec:authorize="hasRole('ADMIN')">
+        <div>
             <a th:href="@{/discMags/add}">Add New Disc Magazine</a>
         </div>
     </div>

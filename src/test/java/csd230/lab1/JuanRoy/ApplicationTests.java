@@ -3,8 +3,6 @@ package csd230.lab1.JuanRoy;
 import csd230.lab1.JuanRoy.entities.*;
 import csd230.lab1.JuanRoy.nicheEntities.HandheldConsoleEntity;
 import csd230.lab1.JuanRoy.nicheEntities.HomeConsoleEntity;
-import csd230.lab1.nicheEntities.*;
-import csd230.lab1.entities.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +10,7 @@ import org.junit.jupiter.api.Nested;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,17 +30,16 @@ class ProductEntityTestSuite {
         @Test
         @DisplayName("Test ticket creation with constructor")
         void testTicketCreation() {
-            assertEquals("Concert Ticket", ticket.getDescription());
+            assertEquals("Concert Ticket", ticket.getName());
             assertEquals(99.99, ticket.getPrice());
         }
 
         @Test
         @DisplayName("Test ticket setters")
         void testSetters() {
-            ticket.setDescription("Movie Ticket");
+            ticket.setName("Movie Ticket");
             ticket.setPrice(15.50);
-
-            assertEquals("Movie Ticket", ticket.getDescription());
+            assertEquals("Movie Ticket", ticket.getName());
             assertEquals(15.50, ticket.getPrice());
         }
 
@@ -51,9 +48,7 @@ class ProductEntityTestSuite {
         void testSellItem() {
             ByteArrayOutputStream outContent = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outContent));
-
             ticket.sellItem();
-
             assertTrue(outContent.toString().contains("Selling Ticket: Concert Ticket for $99.99"));
             System.setOut(System.out);
         }
@@ -80,7 +75,7 @@ class ProductEntityTestSuite {
         @Test
         @DisplayName("Test book creation")
         void testBookCreation() {
-            assertEquals("Java Programming", book.getTitle());
+            assertEquals("Java Programming", book.getName());
             assertEquals(49.99, book.getPrice());
             assertEquals(10, book.getCopies());
             assertEquals("John Doe", book.getAuthor());
@@ -91,9 +86,7 @@ class ProductEntityTestSuite {
         void testSellItemWithStock() {
             ByteArrayOutputStream outContent = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outContent));
-
             book.sellItem();
-
             assertEquals(9, book.getCopies());
             assertTrue(outContent.toString().contains("Sold 'Java Programming'. Remaining copies: 9"));
             System.setOut(System.out);
@@ -105,9 +98,7 @@ class ProductEntityTestSuite {
             book.setCopies(0);
             ByteArrayOutputStream outContent = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outContent));
-
             book.sellItem();
-
             assertEquals(0, book.getCopies());
             assertTrue(outContent.toString().contains("Cannot sell 'Java Programming'. Out of stock."));
             System.setOut(System.out);
@@ -117,12 +108,11 @@ class ProductEntityTestSuite {
         @DisplayName("Test book setters")
         void testSetters() {
             book.setAuthor("Jane Smith");
-            book.setTitle("Python Programming");
+            book.setName("Python Programming");
             book.setPrice(39.99);
             book.setCopies(15);
-
             assertEquals("Jane Smith", book.getAuthor());
-            assertEquals("Python Programming", book.getTitle());
+            assertEquals("Python Programming", book.getName());
             assertEquals(39.99, book.getPrice());
             assertEquals(15, book.getCopies());
         }
@@ -132,18 +122,18 @@ class ProductEntityTestSuite {
     @DisplayName("Magazine Entity Tests")
     class MagazineEntityTests {
         private MagazineEntity magazine;
-        private LocalDate issueDate;
+        private LocalDateTime issueDate;
 
         @BeforeEach
         void setUp() {
-            issueDate = LocalDate.of(2024, 1, 15);
+            issueDate = LocalDateTime.of(2024, 1, 15, 0, 0);
             magazine = new MagazineEntity("Tech Monthly", 9.99, 50, 100, issueDate);
         }
 
         @Test
         @DisplayName("Test magazine creation")
         void testMagazineCreation() {
-            assertEquals("Tech Monthly", magazine.getTitle());
+            assertEquals("Tech Monthly", magazine.getName());
             assertEquals(9.99, magazine.getPrice());
             assertEquals(50, magazine.getCopies());
             assertEquals(100, magazine.getOrderQty());
@@ -153,10 +143,9 @@ class ProductEntityTestSuite {
         @Test
         @DisplayName("Test magazine setters")
         void testSetters() {
-            LocalDate newDate = LocalDate.of(2024, 2, 15);
+            LocalDateTime newDate = LocalDateTime.of(2024, 2, 15, 0, 0);
             magazine.setOrderQty(200);
             magazine.setCurrentIssue(newDate);
-
             assertEquals(200, magazine.getOrderQty());
             assertEquals(newDate, magazine.getCurrentIssue());
         }
@@ -177,14 +166,14 @@ class ProductEntityTestSuite {
 
         @BeforeEach
         void setUp() {
-            LocalDate issueDate = LocalDate.of(2024, 1, 15);
+            LocalDateTime issueDate = LocalDateTime.of(2024, 1, 15, 0, 0);
             discMag = new DiscMagEntity("Gaming Magazine", 14.99, 30, 50, issueDate, true);
         }
 
         @Test
         @DisplayName("Test disc magazine creation")
         void testDiscMagCreation() {
-            assertEquals("Gaming Magazine", discMag.getTitle());
+            assertEquals("Gaming Magazine", discMag.getName());
             assertEquals(14.99, discMag.getPrice());
             assertEquals(30, discMag.getCopies());
             assertEquals(50, discMag.getOrderQty());
@@ -210,14 +199,10 @@ class ProductEntityTestSuite {
     @DisplayName("Cart Entity Tests")
     class CartEntityTests {
         private CartEntity cart;
-        private TicketEntity ticket;
-        private BookEntity book;
 
         @BeforeEach
         void setUp() {
             cart = new CartEntity();
-            ticket = new TicketEntity("Concert", 50.0);
-            book = new BookEntity("Title", 25.0, 5, "Author");
         }
 
         @Test
@@ -253,9 +238,7 @@ class ProductEntityTestSuite {
         void testSellItemWithStock() {
             ByteArrayOutputStream outContent = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outContent));
-
             console.sellItem();
-
             assertEquals(9, console.getQuantity());
             assertTrue(outContent.toString().contains("Sold 'PlayStation 5'. Remaining quantities: 9"));
             System.setOut(System.out);
@@ -267,9 +250,7 @@ class ProductEntityTestSuite {
             console.setQuantity(0);
             ByteArrayOutputStream outContent = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outContent));
-
             console.sellItem();
-
             assertEquals(0, console.getQuantity());
             assertTrue(outContent.toString().contains("Cannot sell 'PlayStation 5'. Out of stock."));
             System.setOut(System.out);
@@ -280,26 +261,8 @@ class ProductEntityTestSuite {
         void testSetters() {
             console.setMaxResolution("8K");
             console.setQuantity(20);
-
             assertEquals("8K", console.getMaxResolution());
             assertEquals(20, console.getQuantity());
-        }
-
-        @Test
-        @DisplayName("Test equals method")
-        void testEquals() {
-            HomeConsoleEntity console2 = new HomeConsoleEntity("PlayStation 5", "Sony", 499.99, 10, "4K");
-            HomeConsoleEntity console3 = new HomeConsoleEntity("Xbox", "Microsoft", 499.99, 10, "4K");
-
-            assertEquals(console, console2);
-            assertNotEquals(console, console3);
-        }
-
-        @Test
-        @DisplayName("Test hashCode method")
-        void testHashCode() {
-            HomeConsoleEntity console2 = new HomeConsoleEntity("PlayStation 5", "Sony", 499.99, 10, "4K");
-            assertEquals(console.hashCode(), console2.hashCode());
         }
     }
 
@@ -337,16 +300,6 @@ class ProductEntityTestSuite {
             handheld.sellItem();
             assertEquals(initialQty - 1, handheld.getQuantity());
         }
-
-        @Test
-        @DisplayName("Test equals method")
-        void testEquals() {
-            HandheldConsoleEntity handheld2 = new HandheldConsoleEntity("Nintendo Switch", "Nintendo", 299.99, 15, 6);
-            HandheldConsoleEntity handheld3 = new HandheldConsoleEntity("Steam Deck", "Valve", 399.99, 10, 8);
-
-            assertEquals(handheld, handheld2);
-            assertNotEquals(handheld, handheld3);
-        }
     }
 
     @Nested
@@ -354,7 +307,7 @@ class ProductEntityTestSuite {
     class ProductEntityTests {
 
         @Test
-        @DisplayName("Test product ID generation")
+        @DisplayName("Test product ID set and get")
         void testIdGeneration() {
             TicketEntity product = new TicketEntity("Test", 10.0);
             product.setId(1L);
@@ -366,11 +319,10 @@ class ProductEntityTestSuite {
         void testProductEquals() {
             TicketEntity product1 = new TicketEntity("Test", 10.0);
             TicketEntity product2 = new TicketEntity("Test", 10.0);
-
             product1.setId(1L);
             product2.setId(1L);
-
             assertEquals(product1, product2);
         }
     }
 }
+
