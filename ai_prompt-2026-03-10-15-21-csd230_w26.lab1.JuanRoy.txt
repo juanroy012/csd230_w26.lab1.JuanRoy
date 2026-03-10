@@ -1,0 +1,34 @@
+CONTEXT FOR AI MODEL
+Generated from: /home/juanr/IdeaProjects/csd230_w26.lab1.JuanRoy
+Timestamp: 2026-03-10-15-21
+
+--- PROJECT STRUCTURE ---
+|-- csd230_w26.lab1.JuanRoy/
+    |-- docker-compose.yaml
+    |-- .files2ignore
+    |-- .gitignore
+    |-- documentation/
+        |-- Lab4/
+            |-- getById.png
+            |-- API.md
+            |-- Swagger.png
+            |-- deleteById.png
+            |-- getAll.png
+        |-- Bookstore_diagram.png
+        |-- Lab2/
+            |-- OrderEntity_ManyToMany.png
+            |-- Stock_change.png
+            |-- orderDetails.png
+            |-- cartDetails.png
+        |-- Lab3/
+            |-- BobShoppingCart.png
+            |-- RegistrationForm.png
+            |-- AliceShoppingCart.png
+            |-- CartEntityTable.png
+        |-- Bookstore_diagram.mmd
+    |-- pom.xml
+    |-- frontend/
+    |-- volumes/
+        |-- mysql/
+            |-- undo_001
+            |-- csd230/
